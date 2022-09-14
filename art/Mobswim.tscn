@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://art/enemyFlyingAlt_2.png" type="Texture" id=1]
+[ext_resource path="res://Mobswim.gd" type="Script" id=2]
+[ext_resource path="res://art/enemyFlyingAlt_1.png" type="Texture" id=3]
+[ext_resource path="res://art/red.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 24.4729
+height = 24.8557
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 23.126
+height = 28.8831
+
+[node name="Mobswim" type="RigidBody2D"]
+position = Vector2( 2.25, 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 2.25, 2 )
+scale = Vector2( 0.658257, 0.409539 )
+frames = SubResource( 6 )
+animation = "swim"
+frame = 1
+playing = true
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 36.25, 37.5 )
+rotation = 1.5423
+shape = SubResource( 7 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 35.25, 35 )
+scale = Vector2( 2.855, 1.875 )
+
+[node name="RedDot" type="Sprite" parent="."]
+position = Vector2( -99.094, -80.189 )
+scale = Vector2( 0.24, 0.238333 )
+texture = ExtResource( 4 )
+centered = false
+region_rect = Rect2( 353, 261, 42, 64 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 35, 37.25 )
+rotation = 1.55879
+shape = SubResource( 8 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
